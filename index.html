@@ -817,7 +817,12 @@ function calculate() {
     runTime +
     stationTotal +
     transition;
+  
+currentTotal = total;
+currentTarget = target;
+currentRunTime = runTime;
 
+updateImprovement();
 
   const difference =
     target - total;
@@ -894,7 +899,107 @@ function calculate() {
     "block";
 
 }
+let currentTotal = 0;
+let currentTarget = 0;
+let currentRunTime = 0;
 
+function updateImprovement() {
+
+  const difference =
+    currentTarget - currentTotal;
+
+  const improvement =
+    document.getElementById(
+      "improvement"
+    );
+
+  const text =
+    document.getElementById(
+      "improvementText"
+    );
+
+  improvement.style.display =
+    "block";
+
+  if (difference >= 0) {
+
+    text.innerHTML =
+      "現在の予想タイムは目標以内です。<br><br>" +
+      "<strong>" +
+      formatTime(difference) +
+      "</strong> の余裕があります。";
+
+  } else {
+
+    text.innerHTML =
+      "目標タイムまであと<br><br>" +
+      "<strong style='font-size:28px;color:#ff5a00;'>" +
+      formatTime(
+        Math.abs(difference)
+      ) +
+      "</strong><br><br>" +
+      "短縮する必要があります。";
+
+  }
+
+}
+
+
+function simulateRun() {
+
+  const seconds =
+    parseFloat(
+      document.getElementById(
+        "runImprovement"
+      ).value
+    );
+
+  if (
+    isNaN(seconds) ||
+    seconds < 0
+  ) {
+
+    return;
+
+  }
+
+  /*
+    8km走るため、
+    1kmあたりの短縮秒数 × 8
+  */
+
+  const totalSaved =
+    seconds * 8 / 60;
+
+  const simulatedTotal =
+    currentTotal -
+    totalSaved;
+
+  const result =
+    document.getElementById(
+      "simulationResult"
+    );
+
+  result.style.display =
+    "block";
+
+  result.innerHTML =
+    "ランを <strong>" +
+    seconds +
+    "秒/km</strong> 速くすると<br><br>" +
+
+    "総合タイムを " +
+    "<strong>" +
+    formatTime(totalSaved) +
+    "</strong> 短縮<br><br>" +
+
+    "予想総合タイム：<br>" +
+
+    "<strong style='font-size:24px;'>" +
+    formatTime(simulatedTotal) +
+    "</strong>";
+
+}
 </script>
 
 </body>
