@@ -4,101 +4,229 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>HYROX LAB | HYROX目標タイム計算</title>
+<title>HYROX LAB | HYROXトレーニングツール</title>
+
+<meta name="description" content="HYROXの目標タイム計算、ランペース計算など、HYROX参加者向けの無料トレーニングツール。">
 
 <style>
+
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
+  background: #0b0b0b;
+  color: #ffffff;
   font-family: Arial, "Noto Sans JP", sans-serif;
-  background: #f5f5f5;
-  color: #222;
 }
+
+/* HEADER */
 
 header {
-  background: #111;
-  color: white;
-  text-align: center;
-  padding: 45px 20px;
+  background: #0b0b0b;
+  border-bottom: 1px solid #222;
+  padding: 25px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-header h1 {
-  margin: 0 0 10px;
-  font-size: 38px;
+.header-inner {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 900;
   letter-spacing: 2px;
 }
 
-header p {
-  margin: 0;
-  color: #ccc;
+.logo span {
+  color: #ff5a00;
 }
+
+nav a {
+  color: #aaa;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: #ff5a00;
+}
+
+/* HERO */
+
+.hero {
+  min-height: 430px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding: 80px 20px;
+
+  background:
+    linear-gradient(
+      rgba(0,0,0,0.7),
+      rgba(0,0,0,0.9)
+    ),
+    radial-gradient(
+      circle at center,
+      #333 0%,
+      #0b0b0b 70%
+    );
+}
+
+.hero-inner {
+  max-width: 900px;
+  margin: auto;
+}
+
+.hero h1 {
+  font-size: clamp(48px, 9vw, 100px);
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 4px;
+  line-height: 0.9;
+}
+
+.hero h1 span {
+  color: #ff5a00;
+}
+
+.hero p {
+  margin-top: 25px;
+  color: #bbb;
+  font-size: 18px;
+}
+
+/* MAIN */
 
 main {
-  max-width: 900px;
-  margin: 35px auto;
-  padding: 0 20px;
+  max-width: 1050px;
+  margin: auto;
+  padding: 60px 20px;
 }
 
+.section-title {
+  font-size: 32px;
+  font-weight: 900;
+  margin-bottom: 30px;
+}
+
+.section-title span {
+  color: #ff5a00;
+}
+
+/* CARD */
+
 .card {
-  background: white;
-  border-radius: 14px;
-  padding: 25px;
-  margin-bottom: 25px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  background: #151515;
+  border: 1px solid #292929;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 30px;
 }
 
 .card h2 {
   margin-top: 0;
+  font-size: 26px;
+}
+
+.description {
+  color: #999;
+  line-height: 1.7;
+}
+
+/* FORM */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
 }
 
 label {
   display: block;
+  margin-bottom: 8px;
   font-weight: bold;
-  margin-top: 15px;
+  color: #ddd;
 }
 
 input {
   width: 100%;
-  padding: 12px;
-  margin-top: 7px;
-  border: 1px solid #ccc;
-  border-radius: 7px;
+  padding: 14px;
+  background: #0d0d0d;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 6px;
   font-size: 16px;
 }
 
+input:focus {
+  outline: none;
+  border-color: #ff5a00;
+}
+
+/* BUTTON */
+
 button {
   width: 100%;
-  margin-top: 25px;
-  padding: 14px;
-  border: none;
-  border-radius: 7px;
-  background: #111;
+  padding: 16px;
+  margin-top: 15px;
+  background: #ff5a00;
   color: white;
+  border: none;
+  border-radius: 6px;
   font-size: 17px;
-  font-weight: bold;
+  font-weight: 900;
   cursor: pointer;
+  letter-spacing: 1px;
 }
 
 button:hover {
-  opacity: 0.85;
+  background: #ff6f20;
 }
 
+/* RESULT */
+
 .result {
-  margin-top: 25px;
-  padding: 20px;
-  background: #f0f0f0;
-  border-radius: 10px;
   display: none;
+  margin-top: 30px;
+  padding: 25px;
+  background: #0d0d0d;
+  border-radius: 10px;
+  border: 1px solid #292929;
+}
+
+.result-title {
+  color: #ff5a00;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .result-row {
   display: flex;
   justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid #ddd;
+  padding: 13px 0;
+  border-bottom: 1px solid #222;
 }
 
 .result-row:last-child {
@@ -106,231 +234,613 @@ button:hover {
 }
 
 .total {
-  font-size: 22px;
-  font-weight: bold;
+  font-size: 26px;
+  font-weight: 900;
   margin-top: 15px;
 }
 
 .status {
-  margin-top: 15px;
-  padding: 15px;
+  margin-top: 20px;
+  padding: 18px;
   border-radius: 8px;
-  font-weight: bold;
   text-align: center;
+  font-weight: bold;
 }
 
-.info {
-  color: #666;
-  font-size: 14px;
-  line-height: 1.7;
+/* TOOLS */
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
+
+.tool-card {
+  background: #151515;
+  border: 1px solid #292929;
+  border-radius: 10px;
+  padding: 25px;
+}
+
+.tool-card h3 {
+  margin-top: 0;
+}
+
+.tool-card p {
+  color: #888;
+  line-height: 1.6;
+}
+
+/* FOOTER */
 
 footer {
+  border-top: 1px solid #222;
+  padding: 40px 20px;
   text-align: center;
-  padding: 35px;
-  color: #777;
+  color: #666;
   font-size: 13px;
 }
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+  header {
+    position: static;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .hero {
+    min-height: 350px;
+    padding: 60px 20px;
+  }
+
+  .hero h1 {
+    font-size: 58px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tool-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>HYROX LAB</h1>
-  <p>HYROXをもっと効率よく攻略するための無料ツール</p>
+
+<div class="header-inner">
+
+<div class="logo">
+HYROX<span>LAB</span>
+</div>
+
+<nav>
+<a href="#calculator">CALCULATOR</a>
+<a href="#tools">TOOLS</a>
+</nav>
+
+</div>
+
 </header>
+
+
+<section class="hero">
+
+<div class="hero-inner">
+
+<h1>
+HYROX<br>
+<span>LAB</span>
+</h1>
+
+<p>
+Train smarter. Race faster.
+</p>
+
+</div>
+
+</section>
+
 
 <main>
 
-<section class="card">
+<section id="calculator">
 
-<h2>🏃 HYROX 目標タイム計算</h2>
+<div class="section-title">
+HYROX <span>CALCULATOR</span>
+</div>
 
-<p class="info">
-目標総合タイム、ランニングペース、各種目のタイムを入力すると、
+
+<div class="card">
+
+<h2>🏃 目標タイム計算</h2>
+
+<p class="description">
+目標総合タイム、ランニングペース、各種目のタイムから
 HYROXの予想総合タイムを計算します。
 </p>
 
-<label>目標総合タイム（分）</label>
-<input type="number" id="targetTime" value="80" min="1">
 
-<label>1kmランニングペース（分）</label>
-<input type="number" id="runPace" value="4.5" min="1" step="0.1">
+<div class="form-grid">
 
-<h3>各種目のタイム（分）</h3>
 
-<label>SkiErg</label>
-<input type="number" class="station" value="4" min="0" step="0.1">
+<div class="form-group">
 
-<label>Sled Push</label>
-<input type="number" class="station" value="3.5" min="0" step="0.1">
+<label>
+目標総合タイム（分）
+</label>
 
-<label>Sled Pull</label>
-<input type="number" class="station" value="3.5" min="0" step="0.1">
+<input
+type="number"
+id="targetTime"
+value="80"
+min="1"
+>
 
-<label>Burpee Broad Jump</label>
-<input type="number" class="station" value="4" min="0" step="0.1">
+</div>
 
-<label>Row</label>
-<input type="number" class="station" value="4" min="0" step="0.1">
 
-<label>Farmers Carry</label>
-<input type="number" class="station" value="2.5" min="0" step="0.1">
+<div class="form-group">
 
-<label>Sandbag Lunges</label>
-<input type="number" class="station" value="3.5" min="0" step="0.1">
+<label>
+1kmランニングペース（分）
+</label>
 
-<label>Wall Balls</label>
-<input type="number" class="station" value="4" min="0" step="0.1">
+<input
+type="number"
+id="runPace"
+value="4.5"
+min="1"
+step="0.1"
+>
 
-<label>トランジション合計（分）</label>
-<input type="number" id="transition" value="7" min="0" step="0.1">
+</div>
 
-<button onclick="calculate()">計算する</button>
+
+<div class="form-group">
+
+<label>SkiErg（分）</label>
+
+<input
+type="number"
+class="station"
+value="4"
+min="0"
+step="0.1"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Sled Push（分）</label>
+
+<input
+type="number"
+class="station"
+value="3.5"
+min="0"
+step="0.1"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Sled Pull（分）</label>
+
+<input
+type="number"
+class="station"
+value="3.5"
+min="0"
+step="0.1"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Burpee Broad Jump（分）</label>
+
+<input
+type="number"
+class="station"
+value="4"
+min="0"
+step="0.1"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Row（分）</label>
+
+<input
+type="number"
+class="station"
+value="4"
+min="0"
+step="0.1"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Farmers Carry（分）</label>
+
+<input
+type="number"
+class="station"
+value="2.5"
+min="0"
+step="0.1"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Sandbag Lunges（分）</label>
+
+<input
+type="number"
+class="station"
+value="3.5"
+min="0"
+step="0.1"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Wall Balls（分）</label>
+
+<input
+type="number"
+class="station"
+value="4"
+min="0"
+step="0.1"
+>
+
+</div>
+
+
+<div class="form-group full">
+
+<label>
+トランジション合計（分）
+</label>
+
+<input
+type="number"
+id="transition"
+value="7"
+min="0"
+step="0.1"
+>
+
+</div>
+
+
+</div>
+
+
+<button onclick="calculate()">
+CALCULATE
+</button>
+
 
 <div class="result" id="result">
 
-<h3>📊 計算結果</h3>
+<div class="result-title">
+RACE PROJECTION
+</div>
+
 
 <div class="result-row">
-<span>8km RUN</span>
+<span>8KM RUN</span>
 <strong id="runResult"></strong>
 </div>
 
+
 <div class="result-row">
-<span>8種目合計</span>
+<span>8 STATIONS</span>
 <strong id="stationResult"></strong>
 </div>
 
+
 <div class="result-row">
-<span>トランジション</span>
+<span>TRANSITION</span>
 <strong id="transitionResult"></strong>
 </div>
 
+
 <div class="result-row total">
-<span>予想総合タイム</span>
+<span>TOTAL</span>
 <strong id="totalResult"></strong>
 </div>
+
 
 <div class="status" id="status"></div>
 
 </div>
 
+</div>
+
 </section>
 
-<section class="card">
 
-<h2>💡 使い方</h2>
+<section id="tools">
 
-<p class="info">
-例えば「1時間20分」を目標にしている場合、
-ランニングペースや各種目の目標タイムを入力することで、
-現在のレースプランで目標タイムを達成できるか確認できます。
+<div class="section-title">
+TRAINING <span>TOOLS</span>
+</div>
+
+
+<div class="tool-grid">
+
+
+<div class="tool-card">
+
+<h3>🔢 1RM Calculator</h3>
+
+<p>
+重量と回数から推定1RMを計算。
 </p>
 
-<p class="info">
-※この計算機はタイム配分の目安を計算するためのツールです。
-実際のレースタイムは、トランジション、疲労、コース、混雑などによって変化します。
+</div>
+
+
+<div class="tool-card">
+
+<h3>❤️ Zone 2 Calculator</h3>
+
+<p>
+Zone 2トレーニングの心拍数目安を計算。
 </p>
+
+</div>
+
+
+<div class="tool-card">
+
+<h3>🏃 Pace Calculator</h3>
+
+<p>
+ランニングペースと距離からタイムを計算。
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<section>
+
+<div class="card">
+
+<h2>ABOUT HYROX LAB</h2>
+
+<p class="description">
+HYROX LABは、HYROXやフィットネストレーニングに役立つ
+無料の計算ツールを提供するサイトです。
+</p>
+
+<p class="description">
+レースペース、トレーニング強度、1RMなど、
+トレーニングで使いやすいツールを少しずつ追加していきます。
+</p>
+
+</div>
 
 </section>
 
 </main>
 
+
 <footer>
+
 © 2026 HYROX LAB
+
 </footer>
+
 
 <script>
 
 function formatTime(minutes) {
 
-  const totalSeconds = Math.round(minutes * 60);
+  const totalSeconds =
+    Math.round(minutes * 60);
 
-  const min = Math.floor(totalSeconds / 60);
+  const min =
+    Math.floor(totalSeconds / 60);
 
-  const sec = totalSeconds % 60;
+  const sec =
+    totalSeconds % 60;
 
-  return min + ":" + String(sec).padStart(2, "0");
+  return (
+    min +
+    ":" +
+    String(sec).padStart(2, "0")
+  );
+
 }
 
 
 function calculate() {
 
   const target =
-    parseFloat(document.getElementById("targetTime").value);
+    parseFloat(
+      document.getElementById("targetTime").value
+    );
+
 
   const pace =
-    parseFloat(document.getElementById("runPace").value);
+    parseFloat(
+      document.getElementById("runPace").value
+    );
+
 
   const transition =
-    parseFloat(document.getElementById("transition").value);
+    parseFloat(
+      document.getElementById("transition").value
+    );
 
-  if (!target || !pace || transition < 0) {
-    alert("入力内容を確認してください。");
+
+  if (
+    !target ||
+    !pace ||
+    transition < 0
+  ) {
+
+    alert(
+      "入力内容を確認してください。"
+    );
+
     return;
+
   }
 
-  const runTime = pace * 8;
+
+  const runTime =
+    pace * 8;
+
 
   const stations =
-    document.querySelectorAll(".station");
+    document.querySelectorAll(
+      ".station"
+    );
+
 
   let stationTotal = 0;
 
-  stations.forEach(function(input) {
 
-    const value = parseFloat(input.value);
+  stations.forEach(
+    function(input) {
 
-    if (!isNaN(value)) {
-      stationTotal += value;
+      const value =
+        parseFloat(input.value);
+
+
+      if (!isNaN(value)) {
+
+        stationTotal += value;
+
+      }
+
     }
+  );
 
-  });
 
   const total =
-    runTime + stationTotal + transition;
+    runTime +
+    stationTotal +
+    transition;
+
 
   const difference =
     target - total;
 
-  document.getElementById("runResult").textContent =
+
+  document.getElementById(
+    "runResult"
+  ).textContent =
     formatTime(runTime);
 
-  document.getElementById("stationResult").textContent =
+
+  document.getElementById(
+    "stationResult"
+  ).textContent =
     formatTime(stationTotal);
 
-  document.getElementById("transitionResult").textContent =
+
+  document.getElementById(
+    "transitionResult"
+  ).textContent =
     formatTime(transition);
 
-  document.getElementById("totalResult").textContent =
+
+  document.getElementById(
+    "totalResult"
+  ).textContent =
     formatTime(total);
 
+
   const status =
-    document.getElementById("status");
+    document.getElementById(
+      "status"
+    );
+
 
   if (difference >= 0) {
 
     status.textContent =
-      "🟢 目標達成まで " +
+      "🟢 TARGET ACHIEVED  /  " +
       formatTime(difference) +
-      " の余裕があります。";
+      "余裕";
 
-    status.style.background = "#e6f7e6";
 
-  } else {
+    status.style.background =
+      "#18351d";
 
-    status.textContent =
-      "🔴 目標タイムを " +
-      formatTime(Math.abs(difference)) +
-      " オーバーしています。";
-
-    status.style.background = "#ffe6e6";
+    status.style.color =
+      "#7cff8a";
 
   }
 
-  document.getElementById("result").style.display = "block";
+  else {
+
+    status.textContent =
+      "🔴 TARGET MISSED  /  " +
+      formatTime(
+        Math.abs(difference)
+      ) +
+      "オーバー";
+
+
+    status.style.background =
+      "#351818";
+
+    status.style.color =
+      "#ff7777";
+
+  }
+
+
+  document.getElementById(
+    "result"
+  ).style.display =
+    "block";
 
 }
 
