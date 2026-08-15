@@ -98,7 +98,8 @@ label {
   font-weight: bold;
 }
 
-input {
+input,
+select {
   width: 100%;
   padding: 14px;
   background: #0d0d0d;
@@ -231,6 +232,20 @@ HYROX<span>LAB</span>
 
 <div class="card">
 
+<label>
+種目
+</label>
+
+<select id="exercise">
+  <option value="Back Squat">Back Squat</option>
+  <option value="Front Squat">Front Squat</option>
+  <option value="Deadlift">Deadlift</option>
+  <option value="Bench Press">Bench Press</option>
+  <option value="Overhead Press">Overhead Press</option>
+  <option value="Clean">Clean</option>
+  <option value="Snatch">Snatch</option>
+  <option value="Other">Other</option>
+</select>
 
 <label>
 使用重量（kg）
@@ -274,6 +289,15 @@ CALCULATE 1RM
 <div class="estimated-title">
 ESTIMATED 1RM
 </div>
+
+<div
+  id="exerciseResult"
+  style="
+    margin-top:8px;
+    color:#aaa;
+    font-size:14px;
+  "
+></div>
 
 <div
   class="estimated-number"
@@ -344,7 +368,12 @@ ESTIMATED 1RM
 <script>
 
 function calculate1RM() {
-
+  
+  const exercise =
+  document.getElementById(
+    "exercise"
+  ).value;
+  
   const weight =
     parseFloat(
       document.getElementById(
@@ -379,7 +408,11 @@ function calculate1RM() {
   const oneRM =
     weight *
     (1 + reps / 30);
-
+  
+document.getElementById(
+  "exerciseResult"
+).textContent =
+  exercise;
 
   document.getElementById(
     "oneRM"
