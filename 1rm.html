@@ -251,6 +251,17 @@ HYROX<span>LAB</span>
 使用重量（kg）
 </label>
 
+<label>
+重量の刻み
+</label>
+
+<select id="increment">
+  <option value="0.5">0.5 kg</option>
+  <option value="1">1 kg</option>
+  <option value="2.5" selected>2.5 kg</option>
+  <option value="5">5 kg</option>
+</select>
+  
 <input
   type="number"
   id="weight"
@@ -310,6 +321,16 @@ ESTIMATED 1RM
 
 <div class="table">
 
+<p
+  style="
+    color:#777;
+    font-size:13px;
+    margin-bottom:10px;
+  "
+>
+ジムで使いやすい重量に丸めています
+</p>
+  
 <div class="row">
 <span>90%</span>
 <strong id="p90"></strong>
@@ -366,13 +387,27 @@ ESTIMATED 1RM
 
 
 <script>
+function roundWeight(weight, increment) {
 
+  return (
+    Math.round(weight / increment) *
+    increment
+  );
+
+}
 function calculate1RM() {
   
   const exercise =
   document.getElementById(
     "exercise"
   ).value;
+
+const increment =
+  parseFloat(
+    document.getElementById(
+      "increment"
+    ).value
+  );
   
   const weight =
     parseFloat(
@@ -420,35 +455,48 @@ document.getElementById(
     oneRM.toFixed(1) + " kg";
 
 
-  document.getElementById(
-    "p90"
-  ).textContent =
-    (oneRM * 0.90).toFixed(1) + " kg";
+ document.getElementById(
+  "p90"
+).textContent =
+  roundWeight(
+    oneRM * 0.90,
+    increment
+  ).toFixed(1) + " kg";
+
+
+ document.getElementById(
+  "p85"
+).textContent =
+  roundWeight(
+    oneRM * 0.85,
+    increment
+  ).toFixed(1) + " kg";
 
 
   document.getElementById(
-    "p85"
-  ).textContent =
-    (oneRM * 0.85).toFixed(1) + " kg";
+  "p80"
+).textContent =
+  roundWeight(
+    oneRM * 0.80,
+    increment
+  ).toFixed(1) + " kg";
+
+  document.getElementById(
+  "p75"
+).textContent =
+  roundWeight(
+    oneRM * 0.75,
+    increment
+  ).toFixed(1) + " kg";
 
 
   document.getElementById(
-    "p80"
-  ).textContent =
-    (oneRM * 0.80).toFixed(1) + " kg";
-
-
-  document.getElementById(
-    "p75"
-  ).textContent =
-    (oneRM * 0.75).toFixed(1) + " kg";
-
-
-  document.getElementById(
-    "p70"
-  ).textContent =
-    (oneRM * 0.70).toFixed(1) + " kg";
-
+  "p70"
+).textContent =
+  roundWeight(
+    oneRM * 0.70,
+    increment
+  ).toFixed(1) + " kg";
 
   document.getElementById(
     "result"
