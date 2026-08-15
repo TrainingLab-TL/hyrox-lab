@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>1RM Calculator | HYROX LAB</title>
+
+<meta
+  name="description"
+  content="重量と回数から推定1RMを計算できる無料の1RM計算機。トレーニング重量の目安も表示します。"
+>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #0b0b0b;
+  color: white;
+  font-family: Arial, "Noto Sans JP", sans-serif;
+}
+
+header {
+  border-bottom: 1px solid #222;
+  padding: 22px 20px;
+}
+
+.header-inner {
+  max-width: 1050px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.logo span {
+  color: #ff5a00;
+}
+
+.home {
+  color: #aaa;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.home:hover {
+  color: #ff5a00;
+}
+
+main {
+  max-width: 700px;
+  margin: auto;
+  padding: 60px 20px;
+}
+
+h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+h1 span {
+  color: #ff5a00;
+}
+
+.description {
+  color: #999;
+  line-height: 1.7;
+}
+
+.card {
+  margin-top: 35px;
+  padding: 30px;
+  background: #151515;
+  border: 1px solid #292929;
+  border-radius: 12px;
+}
+
+label {
+  display: block;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  background: #0d0d0d;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 6px;
+  font-size: 17px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ff5a00;
+}
+
+button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 25px;
+  background: #ff5a00;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 17px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ff6f20;
+}
+
+.result {
+  display: none;
+  margin-top: 30px;
+  padding: 25px;
+  background: #0d0d0d;
+  border-radius: 10px;
+  border: 1px solid #292929;
+}
+
+.estimated {
+  text-align: center;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #292929;
+}
+
+.estimated-title {
+  color: #999;
+  font-size: 14px;
+}
+
+.estimated-number {
+  margin-top: 8px;
+  font-size: 42px;
+  font-weight: 900;
+  color: #ff5a00;
+}
+
+.table {
+  margin-top: 20px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #222;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.info {
+  margin-top: 30px;
+  color: #777;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+footer {
+  border-top: 1px solid #222;
+  padding: 35px 20px;
+  text-align: center;
+  color: #666;
+  font-size: 13px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="header-inner">
+
+<div class="logo">
+HYROX<span>LAB</span>
+</div>
+
+<a
+  class="home"
+  href="index.html"
+>
+← HOME
+</a>
+
+</div>
+
+</header>
+
+
+<main>
+
+<h1>
+1RM <span>CALCULATOR</span>
+</h1>
+
+<p class="description">
+
+重量と回数を入力すると、
+推定1RMとトレーニング重量の目安を計算します。
+
+</p>
+
+
+<div class="card">
+
+
+<label>
+使用重量（kg）
+</label>
+
+<input
+  type="number"
+  id="weight"
+  placeholder="例：100"
+  min="0.1"
+  step="0.5"
+>
+
+
+<label>
+回数（reps）
+</label>
+
+<input
+  type="number"
+  id="reps"
+  placeholder="例：5"
+  min="1"
+  max="30"
+>
+
+
+<button onclick="calculate1RM()">
+CALCULATE 1RM
+</button>
+
+
+<div
+  class="result"
+  id="result"
+>
+
+
+<div class="estimated">
+
+<div class="estimated-title">
+ESTIMATED 1RM
+</div>
+
+<div
+  class="estimated-number"
+  id="oneRM"
+>
+</div>
+
+</div>
+
+
+<div class="table">
+
+<div class="row">
+<span>90%</span>
+<strong id="p90"></strong>
+</div>
+
+<div class="row">
+<span>85%</span>
+<strong id="p85"></strong>
+</div>
+
+<div class="row">
+<span>80%</span>
+<strong id="p80"></strong>
+</div>
+
+<div class="row">
+<span>75%</span>
+<strong id="p75"></strong>
+</div>
+
+<div class="row">
+<span>70%</span>
+<strong id="p70"></strong>
+</div>
+
+</div>
+
+
+</div>
+
+
+<p class="info">
+
+※推定1RMはEpley式
+（重量 × (1 + 回数 ÷ 30)）
+を使用しています。
+
+実際の1RMは個人差やフォーム、
+疲労状態などによって変わります。
+
+</p>
+
+
+</div>
+
+</main>
+
+
+<footer>
+
+© 2026 HYROX LAB
+
+</footer>
+
+
+<script>
+
+function calculate1RM() {
+
+  const weight =
+    parseFloat(
+      document.getElementById(
+        "weight"
+      ).value
+    );
+
+  const reps =
+    parseInt(
+      document.getElementById(
+        "reps"
+      ).value
+    );
+
+
+  if (
+    !weight ||
+    !reps ||
+    weight <= 0 ||
+    reps <= 0
+  ) {
+
+    alert(
+      "重量と回数を入力してください。"
+    );
+
+    return;
+
+  }
+
+
+  const oneRM =
+    weight *
+    (1 + reps / 30);
+
+
+  document.getElementById(
+    "oneRM"
+  ).textContent =
+    oneRM.toFixed(1) + " kg";
+
+
+  document.getElementById(
+    "p90"
+  ).textContent =
+    (oneRM * 0.90).toFixed(1) + " kg";
+
+
+  document.getElementById(
+    "p85"
+  ).textContent =
+    (oneRM * 0.85).toFixed(1) + " kg";
+
+
+  document.getElementById(
+    "p80"
+  ).textContent =
+    (oneRM * 0.80).toFixed(1) + " kg";
+
+
+  document.getElementById(
+    "p75"
+  ).textContent =
+    (oneRM * 0.75).toFixed(1) + " kg";
+
+
+  document.getElementById(
+    "p70"
+  ).textContent =
+    (oneRM * 0.70).toFixed(1) + " kg";
+
+
+  document.getElementById(
+    "result"
+  ).style.display =
+    "block";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
